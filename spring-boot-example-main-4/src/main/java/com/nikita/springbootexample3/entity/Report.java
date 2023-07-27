@@ -4,30 +4,35 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import java.io.Serializable;
+
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Entity
-public class Report {
+public class Report implements Serializable{
     @Id
-    @GeneratedValue
-    private int id;
+    private Integer id;
     private String test;
     private String status;
 
-    @OneToOne(targetEntity = Patient.class,cascade = CascadeType.ALL)
-    @NotFound(action = NotFoundAction.IGNORE)
-    @JoinColumn(name = "Rid_Fk")
+    @OneToOne
+    @JoinColumn(name = "pid")
     private Patient patient;
 
-    @OneToOne(targetEntity = Doctor.class,cascade = CascadeType.ALL)
-    @JoinColumn(name = "Rid_Fkk")
+    @OneToOne
+    @JoinColumn(name = "did")
     private Doctor doctor;
+
+    public Report(Integer id, String test, String status, Patient temp1, Doctor temp) {
+        this.id = id;
+        this.test = test;
+        this.status = status;
+    }
 }

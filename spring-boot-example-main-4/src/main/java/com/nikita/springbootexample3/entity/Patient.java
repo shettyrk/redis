@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -18,9 +19,11 @@ import java.util.List;
 @NamedQueries(value = {
         @NamedQuery(name = "Patient.findbyAge",query = "SELECT p FROM Patient p WHERE p.age=?1")
 })
-public class Patient {
+public class Patient implements Serializable{
     @Id
-    private int pid;
+    private Integer pid;
     private String name;
     private int age;
+
+
 }

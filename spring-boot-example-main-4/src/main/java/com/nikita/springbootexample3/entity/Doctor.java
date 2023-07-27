@@ -1,21 +1,21 @@
 package com.nikita.springbootexample3.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Entity
-public class Doctor {
+@Entity(name = "Doctor")
+@Setter
+@Getter
+public class Doctor implements Serializable{
     @Id
-    private int did;
+    private Integer did;
     private String dname;
     private String specs;
 }
