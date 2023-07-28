@@ -1,10 +1,11 @@
 package com.nikita.springbootexample3.DTO;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString

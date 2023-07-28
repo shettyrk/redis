@@ -41,7 +41,8 @@ public class ReportService {
             Report newReport = new Report();
             Doctor addDoctor = doctorRepo.findById(report.getDid()).orElse(null);
             Patient addPatient = patientRepo.findById(report.getPid()).orElse(null);
-            newReport.setTest(report.getTest());
+            newReport.setId(report.getId());
+            newReport.setTest(report.getStatus());
             newReport.setStatus(report.getStatus());
             newReport.setDoctor(addDoctor);
             newReport.setPatient(addPatient);
