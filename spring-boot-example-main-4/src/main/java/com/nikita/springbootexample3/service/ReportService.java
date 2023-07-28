@@ -27,6 +27,9 @@ public class ReportService {
 
     public Report updateReport(Integer id, ReportDTO report) {
         Report existingReport = reportRepo.findById(id).orElse(null);
+        if(existingReport == null){
+            return null;
+        }
         Doctor updatedDoctor = doctorRepo.findById(report.getDid()).orElse(null);
         Patient updatedPatient = patientRepo.findById(report.getPid()).orElse(null);
         existingReport.setTest(report.getTest());
