@@ -59,4 +59,8 @@ public class DoctorService {
             doctorRepo.updateDoctor(doctorDTO.getDid(), doctorDTO.getDname(), doctorDTO.getSpecs());
         }
     }
+
+    public Optional<Doctor> getDoctorByIdNew(Integer id){
+        return doctorRepo.findDoctorById(id);
+    }
 }

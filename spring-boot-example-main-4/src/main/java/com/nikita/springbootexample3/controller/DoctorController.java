@@ -45,6 +45,10 @@ public class DoctorController {
     public void upsertDoctor(@RequestBody DoctorDTO doctorDTO){
          doctorService.upsertDoctor(doctorDTO);
     }
+    @GetMapping("getDoctorByIDnew/{did}")
+    public Optional<Doctor> getDoctorByIdnew(@PathVariable Integer did){
+        return doctorService.getDoctorByIdNew(did);
+    }
 
     @DeleteMapping("/deleteDoctor/{did}")
     @CacheEvict(value = "editDoctor" ,key = "#did")
