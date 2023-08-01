@@ -1,14 +1,10 @@
 package com.nikita.springbootexample3.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 
 
@@ -22,7 +18,7 @@ public class Report implements Serializable{
     private String test;
     private String status;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "pid")
     private Patient patient;
 

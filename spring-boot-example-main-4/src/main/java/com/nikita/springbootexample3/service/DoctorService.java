@@ -4,6 +4,7 @@ import com.nikita.springbootexample3.DTO.DoctorDTO;
 import com.nikita.springbootexample3.Repo.DoctorRepo;
 import com.nikita.springbootexample3.entity.Doctor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +18,12 @@ public class DoctorService {
         return doctorRepo.findAll();}
 
     public Optional<Doctor> getDoctorById(Integer id) {
-        return doctorRepo.findById(id);
+        Doctor existingDoctor = doctorRepo.findById(id).orElse(null);
+        if(existingDoctor != null)
+        {
+            return doctorRepo.findById(id);
+        }
+        return null;
     }
 
     public Doctor updateDoctor(Integer id , DoctorDTO temp) {
@@ -44,4 +50,13 @@ public class DoctorService {
 
     public void deleteDoctorbyName(String name) {
         doctorRepo.deleteByName(name);}
+
+    public void upsertDoctor(DoctorDTO doctorDTO) {
+        if(doctorRepo.findAllById(doctorDTO.getDid()) == 0) {
+            doctorRepo.addDoctor(doctorDTO.getDid(),doctorDTO.getDname(),doctorDTO.getSpecs());
+        }
+        else {
+            doctorRepo.updateDoctor(doctorDTO.getDid(), doctorDTO.getDname(), doctorDTO.getSpecs());
+        }
+    }
 }

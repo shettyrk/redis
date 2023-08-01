@@ -16,14 +16,13 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @Entity
-@NamedQueries(value = {
-        @NamedQuery(name = "Patient.findbyAge",query = "SELECT p FROM Patient p WHERE p.age=?1")
-})
+
 public class Patient implements Serializable{
     @Id
     private Integer pid;
     private String name;
     private int age;
-
-
+    @OneToMany
+    @JoinColumn(name = "id")
+    private List<Report> reports;
 }

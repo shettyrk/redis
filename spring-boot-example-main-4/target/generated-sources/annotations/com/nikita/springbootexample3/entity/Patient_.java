@@ -1,6 +1,7 @@
 package com.nikita.springbootexample3.entity;
 
 import javax.annotation.Generated;
+import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
@@ -8,10 +9,12 @@ import javax.persistence.metamodel.StaticMetamodel;
 @StaticMetamodel(Patient.class)
 public abstract class Patient_ {
 
+	public static volatile ListAttribute<Patient, Report> reports;
 	public static volatile SingularAttribute<Patient, String> name;
 	public static volatile SingularAttribute<Patient, Integer> pid;
 	public static volatile SingularAttribute<Patient, Integer> age;
 
+	public static final String REPORTS = "reports";
 	public static final String NAME = "name";
 	public static final String PID = "pid";
 	public static final String AGE = "age";

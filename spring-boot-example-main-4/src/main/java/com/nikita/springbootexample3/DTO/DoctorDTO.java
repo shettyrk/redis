@@ -11,4 +11,6 @@ public class DoctorDTO {
     private Integer did;
     private String dname;
     private String specs;
+
+
 }
