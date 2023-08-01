@@ -1,6 +1,7 @@
 package com.nikita.springbootexample3.Repo;
 
 import com.nikita.springbootexample3.entity.Doctor;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -21,7 +22,7 @@ public interface DoctorRepo extends JpaRepository<Doctor,Integer> {
     int findAllById(Integer did);
 
     @Query(value = "Select * "+"from doctor D "+"where D.did= ?1",nativeQuery = true)
-    @QueryHints(@QueryHint(name = org.hibernate.annotations.QueryHints.CACHEABLE, value = "true"))
+//    @QueryHints(@QueryHint(name = org.hibernate.annotations.QueryHints.CACHEABLE, value = "true"))
     @Cacheable(value = "doctorCacheRepo",key = "#did")
     Optional<Doctor> findDoctorById(Integer did);
 
@@ -32,8 +33,8 @@ public interface DoctorRepo extends JpaRepository<Doctor,Integer> {
 
     @Modifying
     @Transactional
-    @QueryHints(@QueryHint(name = org.hibernate.annotations.QueryHints.CACHEABLE, value = "true"))
-    @Cacheable(value = "doctorCacheRepo",key = "#did")
+//    @QueryHints(@QueryHint(name = org.hibernate.annotations.QueryHints.CACHEABLE, value = "true"))
+    @CachePut(value = "doctorCacheRepo",key = "#did")
     @Query(value = "UPDATE doctor SET dname = ?2, specs = ?3 WHERE did = ?1", nativeQuery = true)
     int updateDoctor(Integer did, String dname, String specs);
 
