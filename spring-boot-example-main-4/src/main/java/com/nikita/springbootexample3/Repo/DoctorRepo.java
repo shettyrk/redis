@@ -21,21 +21,21 @@ public interface DoctorRepo extends JpaRepository<Doctor,Integer> {
     @Query(value = "Select count(*) FROM doctor WHERE did = ?1",nativeQuery = true)
     int findAllById(Integer did);
 
-    @Query(value = "Select * "+"from doctor D "+"where D.did= ?1",nativeQuery = true)
+    @Query(value = "Select * from doctor D where D.did= ?1",nativeQuery = true)
 //    @QueryHints(@QueryHint(name = org.hibernate.annotations.QueryHints.CACHEABLE, value = "true"))
     @Cacheable(value = "doctorCacheRepo",key = "#did")
     Optional<Doctor> findDoctorById(Integer did);
 
     @Modifying
     @Transactional
+    @CachePut(value = "customersCache", key = "#root.methodName")
     @Query(value = "INSERT INTO doctor(did, dname, specs) VALUES (?1, ?2, ?3)", nativeQuery = true)
-    int addDoctor(Integer did, String dname, String specs);
+    void addDoctor(Integer did, String dname, String specs);
 
     @Modifying
     @Transactional
-//    @QueryHints(@QueryHint(name = org.hibernate.annotations.QueryHints.CACHEABLE, value = "true"))
-    @CachePut(value = "doctorCacheRepo",key = "#did")
+    @CachePut(value = "customersCache", key = "#root.methodName")
     @Query(value = "UPDATE doctor SET dname = ?2, specs = ?3 WHERE did = ?1", nativeQuery = true)
-    int updateDoctor(Integer did, String dname, String specs);
+    void updateDoctor(Integer did, String dname, String specs);
 
 }

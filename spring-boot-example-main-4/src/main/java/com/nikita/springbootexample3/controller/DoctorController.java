@@ -32,15 +32,15 @@ public class DoctorController {
         return doctorService.getDoctorByName(name);}
 
 
-//    @PutMapping("/editDoctor/{did}")
-//    @CachePut(value = "editDoctor",key = "#did")
-//    public Doctor editDoctor(@PathVariable Integer did, @RequestBody DoctorDTO doctor){
-//        return doctorService.updateDoctor(did, doctor);
-//    }
-//    @PostMapping("/addD")
-//    public Doctor addDoctor(@RequestBody Doctor doctor){
-//        return doctorService.addDoctor(doctor);
-//    }
+    @PutMapping("/editDoctor/{did}")
+    @CachePut(value = "editDoctor",key = "#did")
+    public Doctor editDoctor(@PathVariable Integer did, @RequestBody DoctorDTO doctor){
+        return doctorService.updateDoctor(did, doctor);
+    }
+    @PostMapping("/addD")
+    public Doctor addDoctor(@RequestBody Doctor doctor){
+        return doctorService.addDoctor(doctor);
+    }
     @PostMapping("/upsertDoctor")
     public void upsertDoctor(@RequestBody DoctorDTO doctorDTO){
          doctorService.upsertDoctor(doctorDTO);
