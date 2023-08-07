@@ -11,14 +11,15 @@ import java.math.BigInteger;
 import java.util.List;
 
 @Repository
-public interface UserActionLogRepository extends JpaRepository<UserActionLog, String> {
+public interface UserActionLogRepository extends JpaRepository<UserActionLogDTO, String> {
 
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO user_action_log(id, email, type, action, created_timestamp, message,status) values (?1,?2,?3,?4,?5,?6,?7)", nativeQuery = true)
     void addUserAction(String id, String email, String type, String action, BigInteger createdTimestamp, String message, String status);
 
-    @Query(nativeQuery = true)
+    @Query(value = "SELECT *"
+            + " FROM user_action_log ual",nativeQuery = true)
     List<UserActionLogDTO> getUserActionLogs(String email, String type, String action, BigInteger start_date, BigInteger end_date, String status, Integer pagesize, Integer offset, String searchkey, String message);
 
     //Get user action log records count

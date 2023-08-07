@@ -30,35 +30,36 @@ public class UserActionLogService {
         System.out.println("added");
     }
 
-    public List<UserActionLogDTO> getUserActionLogs(String username, String vdmsid, JSONObject filterObject, Integer pageno, Integer pagesize, String searchkey) {
-
-        String email = filterObject.getString("email");
-        String type = filterObject.getString("type");
-        String action = filterObject.getString("action");
-        BigInteger start_date = filterObject.getBigInteger("start_date");
-        BigInteger end_date = filterObject.getBigInteger("end_date");
-        String status = filterObject.getString("status");
-        Integer offset = pagesize * (pageno - 1);
-        String message = "all";
-
-        if(type.equals("Device")){
-            if(action.equals("ADD")) {
-                message = "is added";
-            }else if(action.equals("UPDATE")){
-                message = "is updated for network";
-            }else if(action.equals("DELETE")){
-                message = "is deleted";
-            }
-        }
-
-        if(type.equals("Geolocation")) {
-            if(action.equals("UPDATE")){
-                type =  "Device";
-                message = "Position details";
-            }
-        }
-
-        List<UserActionLogDTO> userActionLogDTOS = userActionLogRepository.getUserActionLogs(email, type, action, start_date, end_date, status, pagesize, offset, searchkey, message);
+    public List<UserActionLogDTO> getUserActionLogs() {
+//
+//        String email = filterObject.getString("email");
+//        String type = filterObject.getString("type");
+//        String action = filterObject.getString("action");
+//        BigInteger start_date = filterObject.getBigInteger("start_date");
+//        BigInteger end_date = filterObject.getBigInteger("end_date");
+//        String status = filterObject.getString("status");
+//        Integer offset = pagesize * (pageno - 1);
+//        String message = "all";
+//
+//        if(type.equals("Device")){
+//            if(action.equals("ADD")) {
+//                message = "is added";
+//            }else if(action.equals("UPDATE")){
+//                message = "is updated for network";
+//            }else if(action.equals("DELETE")){
+//                message = "is deleted";
+//            }
+//        }
+//
+//        if(type.equals("Geolocation")) {
+//            if(action.equals("UPDATE")){
+//                type =  "Device";
+//                message = "Position details";
+//            }
+//        }
+//
+//        List<UserActionLogDTO> userActionLogDTOS = userActionLogRepository.getUserActionLogs(email, type, action, start_date, end_date, status, pagesize, offset, searchkey, message);
+       List<UserActionLogDTO>  userActionLogDTOS = userActionLogRepository.findAll();
         return userActionLogDTOS;
     }
 
