@@ -22,24 +22,21 @@ public class DoctorController {
     public List<Doctor> getAllDoctors(){
         return doctorService.getAllDoctor();}
     @GetMapping("/getDoctor/{did}")
-    @Cacheable(value = "editDoctor" ,key = "#did")
     public Optional<Doctor> getDoctorById(@PathVariable Integer did){
         return doctorService.getDoctorById(did);}
 
     @GetMapping("/getDoctorbyName/{name}")
-    @Cacheable(value = "editDoctor" ,key = "#name")
     public Doctor getDoctorByName(@PathVariable String name){
         return doctorService.getDoctorByName(name);}
 
 
     @PutMapping("/editDoctor/{did}")
-    @CachePut(value = "editDoctor",key = "#did")
     public Doctor editDoctor(@PathVariable Integer did, @RequestBody DoctorDTO doctor){
         return doctorService.updateDoctor(did, doctor);
     }
     @PostMapping("/addD")
-    public Doctor addDoctor(@RequestBody Doctor doctor){
-        return doctorService.addDoctor(doctor);
+    public void addDoctor(@RequestBody Doctor doctor){
+         doctorService.addDoctor(doctor);
     }
     @PostMapping("/upsertDoctor")
     public void upsertDoctor(@RequestBody DoctorDTO doctorDTO){
@@ -51,12 +48,10 @@ public class DoctorController {
     }
 
     @DeleteMapping("/deleteDoctor/{did}")
-    @CacheEvict(value = "editDoctor" ,key = "#did")
     public void deleteDoctor(@PathVariable Integer did){
         doctorService.deleteDoctor(did);
     }
     @DeleteMapping("/deleteDoctorByName/{name}")
-    @CacheEvict(value = "editDoctor" ,key = "#name")
     public void deleteDoctorbyName(@PathVariable String name){
         doctorService.deleteDoctorbyName(name);
     }

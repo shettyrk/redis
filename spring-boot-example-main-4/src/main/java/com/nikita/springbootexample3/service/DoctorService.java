@@ -36,7 +36,7 @@ public class DoctorService {
         System.out.println("From Database");
         return doctorRepo.save(existingDoctor);
     }
-    public Doctor addDoctor(Doctor doctor) {
+    public void addDoctor(Doctor doctor) {
         return doctorRepo.save(doctor);
     }
     public void deleteDoctor(Integer id) {
@@ -45,7 +45,7 @@ public class DoctorService {
 
     public Doctor getDoctorByName(String name) {
         System.out.println("Form Database");
-        return doctorRepo.findDoctorByName(name);
+         doctorRepo.findDoctorByName(name);
     }
 
     public void deleteDoctorbyName(String name) {

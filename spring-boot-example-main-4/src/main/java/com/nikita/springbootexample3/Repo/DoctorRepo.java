@@ -12,9 +12,9 @@ import javax.persistence.QueryHint;
 import javax.transaction.Transactional;
 import java.util.Optional;
 
-public interface DoctorRepo extends JpaRepository<Doctor,Integer> {
+public interface DoctorRepo  {
     @Query(value = "Select * "+"from doctor D "+"where D.dname= ?",nativeQuery = true)
-    Doctor findDoctorByName(String name);
+    void findDoctorByName(String name);
     @Query(value = "Delete * "+"form doctor D"+"where D.dname = ?",nativeQuery = true)
     void deleteByName(String name);
 
@@ -37,5 +37,6 @@ public interface DoctorRepo extends JpaRepository<Doctor,Integer> {
     @CachePut(value = "customersCache", key = "#root.methodName")
     @Query(value = "UPDATE doctor SET dname = ?2, specs = ?3 WHERE did = ?1", nativeQuery = true)
     void updateDoctor(Integer did, String dname, String specs);
-
+@Query(value = "INSERT INTO user_action_log(id, email, type, action, created_timestamp, message,status) values (?1)")
+    void save(Doctor doctor);
 }
